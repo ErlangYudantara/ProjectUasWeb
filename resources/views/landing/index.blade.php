@@ -20,9 +20,11 @@
         <a href="#stan" class="btn btn-primary btn-lg">
             <x-icon name="utensils" :size="18" /> Pesan Sekarang
         </a>
-        <a href="{{ url('/login') }}" class="btn btn-soft btn-lg">
-            <x-icon name="log-in" :size="18" /> Masuk / Daftar Akun
-        </a>
+        @guest
+            <a href="{{ route('login') }}" class="btn btn-soft btn-lg">
+                <x-icon name="log-in" :size="18" /> Masuk / Daftar Akun
+            </a>
+        @endguest
     </div>
 
     <div class="stats">
@@ -64,7 +66,7 @@
                         <span class="jam"><x-icon name="clock" :size="14" /> {{ $t['jam'] }}</span>
                         <span class="harga">Mulai Rp {{ number_format($t['harga'], 0, ',', '.') }}</span>
                     </div>
-                    <a href="{{ url('/login') }}" class="btn btn-primary btn-block">Lihat Menu &amp; Pesan</a>
+                    <a href="{{ auth()->check() ? url('/#stan') : route('login') }}" class="btn btn-primary btn-block">Lihat Menu &amp; Pesan</a>
                 </div>
             </article>
         @endforeach
