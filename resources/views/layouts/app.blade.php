@@ -14,8 +14,11 @@
 
 <header class="navbar">
     <a href="{{ url('/') }}" class="brand">
-        <span class="brand-name">Kantin UPNVJ</span>
-        <span class="brand-sub">Green Campus Food Hall</span>
+        <img src="{{ asset('images/logo-upnvj.png') }}" alt="Logo UPN Veteran Jakarta" class="brand-logo">
+        <span class="brand-text">
+            <span class="brand-name">Kantin UPNVJ</span>
+            <span class="brand-sub">Green Campus Food Hall</span>
+        </span>
     </a>
 
     <nav class="nav-links" aria-label="Navigasi utama">
