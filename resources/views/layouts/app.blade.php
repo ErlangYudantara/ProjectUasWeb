@@ -32,7 +32,19 @@
             <x-icon name="bell" :size="18" />
             <span class="bell-dot"></span>
         </button>
-        <a href="{{ url('/login') }}" class="btn btn-primary btn-sm">Masuk/Daftar</a>
+        @guest
+            <a href="{{ route('login') }}" class="btn btn-primary btn-sm">Masuk/Daftar</a>
+        @endguest
+
+        @auth
+            <span class="user-name">{{ auth()->user()->nama }}</span>
+            @if (Route::has('logout'))
+                <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                    @csrf
+                    <button type="submit" class="btn btn-primary btn-sm">Keluar</button>
+                </form>
+            @endif
+        @endauth
     </div>
 </header>
 
