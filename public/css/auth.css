@@ -1,0 +1,739 @@
+/* ========================================
+   AUTHENTICATION - KANTIN UPNVJ
+   Login & Register
+======================================== */
+
+:root {
+    --auth-green: #00461f;
+    --auth-green-light: #0f5c35;
+    --auth-bg: #f7f9ff;
+    --auth-input: #eff4ff;
+    --auth-text: #142238;
+    --auth-muted: #515b54;
+    --auth-white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.auth-page {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: var(--auth-bg);
+    color: var(--auth-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ========================================
+   LOGIN PAGE
+======================================== */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 16px;
+}
+
+.login-card {
+    position: relative;
+    width: 100%;
+    max-width: 464px;
+    padding: 32px;
+    background:
+        radial-gradient(
+            ellipse at 90% 12%,
+            rgba(215, 243, 222, 0.65),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 5% 100%,
+            rgba(255, 239, 218, 0.75),
+            transparent 38%
+        ),
+        #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 16px 28px rgba(25, 35, 55, 0.12);
+}
+
+/* HEADER */
+
+.login-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.login-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.login-logo {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: var(--auth-green);
+    color: white;
+    border-radius: 9px;
+}
+
+.login-logo svg {
+    width: 22px;
+    height: 22px;
+}
+
+.login-brand h2 {
+    font-size: 19px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--auth-green);
+}
+
+.login-brand span {
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    color: #414942;
+}
+
+.sso-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    border-radius: 20px;
+    background: #e5edff;
+    color: #384451;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sso-badge span {
+    color: var(--auth-green);
+}
+
+/* TITLE */
+
+.login-title {
+    margin-bottom: 16px;
+}
+
+.login-title h1 {
+    margin: 0 0 4px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    line-height: 1.35;
+    color: var(--auth-text);
+}
+
+.login-title p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--auth-muted);
+}
+
+/* FORM */
+
+.auth-field {
+    margin-bottom: 16px;
+}
+
+.field-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.field-heading label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--auth-text);
+}
+
+.field-link {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--auth-green);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background: var(--auth-input);
+    border-radius: 9px;
+    padding: 0 13px;
+    transition: box-shadow 0.2s;
+}
+
+.input-wrapper:focus-within {
+    box-shadow: 0 0 0 2px rgba(0, 70, 31, 0.18);
+}
+
+.input-icon {
+    width: 21px;
+    flex-shrink: 0;
+    font-size: 19px;
+    font-weight: 600;
+    color: #526052;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0 9px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--auth-text);
+}
+
+.input-wrapper input::placeholder {
+    color: #778174;
+    opacity: 1;
+}
+
+.toggle-password {
+    width: 25px;
+    height: 30px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #526052;
+    cursor: pointer;
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+}
+
+.auth-error {
+    display: block;
+    margin-top: 5px;
+    font-size: 11px;
+    color: #dc2626;
+}
+
+/* REMEMBER ME */
+
+.login-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 17px 0 20px;
+}
+
+.remember-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.remember-label input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--auth-green);
+    cursor: pointer;
+}
+
+.remember-label span {
+    font-size: 11px;
+    color: var(--auth-muted);
+}
+
+.secure-badge {
+    padding: 4px 9px;
+    border-radius: 5px;
+    background: #d4f5e8;
+    color: #075b43;
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* LOGIN BUTTON */
+
+.login-submit {
+    width: 100%;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    border: none;
+    border-radius: 9px;
+    background: var(--auth-green);
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-submit:hover {
+    background: var(--auth-green-light);
+}
+
+.login-submit span {
+    font-size: 21px;
+    line-height: 1;
+}
+
+/* REGISTER LINK */
+
+.login-register {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.login-register p {
+    margin: 0;
+    font-size: 12px;
+    color: var(--auth-muted);
+}
+
+.login-register a {
+    margin-left: 3px;
+    color: var(--auth-green);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.login-register a:hover {
+    text-decoration: underline;
+}
+
+/* FOOTER */
+
+.login-footer {
+    margin-top: 7px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: #758075;
+}
+
+/* ALERT */
+
+.auth-success {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 7px;
+    background: #dff7e9;
+    color: #075b35;
+    font-size: 12px;
+}
+
+.auth-page button:focus-visible,
+.auth-page a:focus-visible {
+    outline: 2px solid #0f8b50;
+    outline-offset: 3px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 480px) {
+    .login-page {
+        padding: 16px;
+    }
+
+    .login-card {
+        padding: 25px 22px;
+    }
+
+    .login-brand h2 {
+        font-size: 17px;
+    }
+
+    .login-title h1 {
+        font-size: 22px;
+    }
+}
+
+/* ========================================
+   REGISTER PAGE
+======================================== */
+
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 28px;
+    background: #f7f9ff;
+}
+
+/* UNIVERSITY HEADER */
+
+.register-university {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 49px;
+    padding: 7px 24px;
+    margin-bottom: 48px;
+    background: #ffffff;
+    border-radius: 50px;
+    box-shadow: 0 3px 12px rgba(20, 35, 60, 0.04);
+}
+
+.university-logo {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #105d35;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.university-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.university-text strong {
+    color: #064b29;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.university-text span {
+    color: #525b53;
+    font-size: 11px;
+}
+
+/* REGISTER CARD */
+
+.register-card {
+    position: relative;
+    width: 100%;
+    max-width: 456px;
+    padding: 32px;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 13px;
+    box-shadow: 0 15px 25px rgba(20, 30, 50, 0.13);
+}
+
+.register-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: #105d35;
+}
+
+/* REGISTER ICON */
+
+.register-icon {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: #105d35;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 50, 25, 0.2);
+}
+
+.register-icon svg {
+    width: 27px;
+    height: 27px;
+}
+
+/* REGISTER HEADING */
+
+.register-heading {
+    text-align: center;
+    margin-bottom: 106px;
+}
+
+.register-heading h1 {
+    margin: 0;
+    color: #142238;
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.register-heading p {
+    margin: 5px 0 0;
+    color: #515b54;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+/* REGISTER FORM */
+
+.register-field {
+    margin-bottom: 16px;
+}
+
+.register-field > label {
+    display: block;
+    margin-bottom: 5px;
+    color: #142238;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.register-input {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 13px;
+    background: #eff4ff;
+    border-radius: 9px;
+    transition: box-shadow 0.2s;
+}
+
+.register-input:focus-within {
+    box-shadow: 0 0 0 2px rgba(0, 70, 31, 0.18);
+}
+
+.register-input-icon {
+    width: 19px;
+    height: 22px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #68776b;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.register-input-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+.register-input input {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #142238;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.register-input input::placeholder {
+    color: #99a2b1;
+    opacity: 1;
+}
+
+.register-input .toggle-password {
+    width: 24px;
+    flex-shrink: 0;
+}
+
+/* TERMS */
+
+.register-terms {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 20px 0 23px;
+}
+
+.register-terms input {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    margin: 3px 0 0;
+    accent-color: #105d35;
+    cursor: pointer;
+}
+
+.register-terms label {
+    color: #515b54;
+    font-size: 11px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.register-terms a {
+    color: #096536;
+    text-decoration: none;
+}
+
+.register-terms a:hover {
+    text-decoration: underline;
+}
+
+/* REGISTER BUTTON */
+
+.register-submit {
+    width: 100%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: none;
+    border-radius: 9px;
+    background: #105d35;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 50, 25, 0.15);
+    transition: background 0.2s;
+}
+
+.register-submit:hover {
+    background: #00461f;
+}
+
+.register-submit span {
+    font-size: 21px;
+    line-height: 1;
+}
+
+/* DIVIDER */
+
+.register-divider {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 24px 0;
+}
+
+.register-divider span {
+    height: 1px;
+    flex: 1;
+    background: #dce5f5;
+}
+
+.register-divider p {
+    margin: 0;
+    color: #515b54;
+    font-size: 11px;
+}
+
+/* LOGIN LINK */
+
+.register-login {
+    text-align: center;
+}
+
+.register-login p {
+    margin: 0 0 4px;
+    color: #515b54;
+    font-size: 13px;
+}
+
+.register-login a {
+    color: #096536;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.register-login a:hover {
+    text-decoration: underline;
+}
+
+.register-login a span {
+    font-size: 17px;
+}
+
+/* REGISTER FOOTER */
+
+.register-sso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 17px;
+    color: #515b54;
+    font-size: 11px;
+}
+
+.register-sso svg {
+    width: 15px;
+    height: 15px;
+    color: #096536;
+}
+
+.register-copyright {
+    margin-top: auto;
+    padding-top: 48px;
+    color: #515b54;
+    font-size: 11px;
+    text-align: center;
+}
+
+.register-copyright span {
+    padding: 0 7px;
+}
+
+/* REGISTER RESPONSIVE */
+
+@media (max-width: 520px) {
+    .register-page {
+        padding: 24px 16px;
+    }
+
+    .register-university {
+        margin-bottom: 30px;
+        padding: 7px 16px;
+    }
+
+    .register-card {
+        padding: 30px 24px;
+    }
+
+    .register-heading {
+        margin-bottom: 65px;
+    }
+
+    .register-copyright {
+        line-height: 1.8;
+    }
+}

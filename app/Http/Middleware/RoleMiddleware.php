@@ -9,12 +9,24 @@ use Symfony\Component\HttpFoundation\Response;
 class RoleMiddleware
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
+     * Memeriksa role pengguna sebelum mengakses halaman.
      */
-    public function handle(Request $request, Closure $next): Response
-    {
+    public function handle(
+        Request $request,
+        Closure $next,
+        string ...$roles
+    ): Response {
+
+        // Memastikan pengguna sudah login
+        if (!$request->user()) {
+            return redirect()->route('login');
+        }
+
+        // Memeriksa kesesuaian role pengguna
+        if (!in_array($request->user()->role, $roles)) {
+            abort(403, 'Kamu tidak memiliki akses ke halaman ini.');
+        }
+
         return $next($request);
     }
 }
