@@ -22,5 +22,6 @@
     <script src="{{ asset('js/auth.js') }}" defer></script>
 
     @stack('scripts')
+    <script src="{{ asset('js/auth-loading.js') }}" defer></script>
 </body>
 </html>
