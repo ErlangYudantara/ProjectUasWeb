@@ -2,16 +2,25 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        //
+        Model::unguarded(function () {
+            $data = [
+                1 => 'Makanan Berat',
+                2 => 'Soto & Kuah',
+                3 => 'Minuman Segar',
+                4 => 'Camilan & Snack',
+            ];
+
+            foreach ($data as $id => $nama) {
+                Category::updateOrCreate(['id' => $id], ['nama_kategori' => $nama]);
+            }
+        });
     }
 }

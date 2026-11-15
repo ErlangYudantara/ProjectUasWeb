@@ -4,12 +4,23 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Pembeli\MenuController;
+use App\Http\Controllers\Pembeli\CartController;
 
 // Landing Page
 Route::get('/', [LandingController::class, 'index'])
     ->name('landing');
 
-// Authentication
+// Menu & Pesanan (bisa dibuka tamu maupun pengguna login)
+Route::get('/menu', [MenuController::class, 'index'])
+    ->name('menu.index');
+// Keranjang
+Route::get('/keranjang', [CartController::class, 'index'])
+    ->name('keranjang.index');
+Route::get('/keranjang/detail', [CartController::class, 'detail'])
+    ->name('keranjang.detail');
+
+// Authentication (hanya untuk yang belum login)
 Route::middleware('guest')->group(function () {
 
     // Login
@@ -28,7 +39,20 @@ Route::middleware('guest')->group(function () {
 
 });
 
-// Logout
-Route::post('/logout', [LoginController::class, 'logout'])
-    ->middleware('auth')
-    ->name('logout');
+// Area setelah login
+Route::middleware('auth')->group(function () {
+
+    // Sementara: pembeli diarahkan ke halaman menu
+    Route::get('/pembeli/dashboard', fn () => redirect()->route('menu.index'))
+        ->name('pembeli.dashboard');
+
+    // Placeholder sampai dashboard penjual dibuat
+    Route::get('/penjual/dashboard', fn () => 'Dashboard penjual belum dibuat.')
+        ->name('penjual.dashboard');
+
+    // Logout
+    Route::post('/logout', [LoginController::class, 'logout'])
+        ->name('logout');
+
+
+});
