@@ -1,0 +1,74 @@
+/* HALAMAN PROFIL PENGGUNA */
+.m-page{padding-bottom:56px}
+.m-brand img{width:44px;height:44px}
+.m-topnav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:32px}
+.m-topnav a{padding:8px 0;font-size:14px;font-weight:600;color:#2b3138}
+.m-topnav a:hover{color:var(--green)}
+
+/* Breadcrumb & judul */
+.pf-crumb{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#3b443d}
+.pf-crumb a{display:inline-flex;align-items:center;gap:4px}
+.pf-crumb a:hover{text-decoration:underline}
+.pf-crumb span{color:#6b756d}
+.pf-crumb strong{color:var(--green);font-weight:700}
+.pf-top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:6px 0 24px}
+.pf-top h1{font-size:32px;font-weight:800;letter-spacing:-.02em;color:#142238}
+.pf-top p{margin-top:2px;font-size:14px;color:var(--muted)}
+.pf-sso{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#eaf1fb;color:var(--green);font-size:12px;font-weight:700}
+.pf-sso i{width:8px;height:8px;border-radius:50%;background:var(--green)}
+
+/* Layout dua kolom */
+.pf-grid{display:grid;grid-template-columns:368px 1fr;gap:24px;align-items:start}
+.pf-side{padding:32px;border-radius:16px;background:#fff;text-align:center;box-shadow:0 2px 10px rgba(0,30,60,.05)}
+.pf-ava{position:relative;display:grid;place-items:center;width:96px;height:96px;margin:0 auto 14px;border:4px solid var(--green);border-radius:50%;background:#eef3ff}
+.pf-ava>span{font-size:36px;font-weight:800;color:var(--green)}
+.pf-cam{position:absolute;right:-8px;bottom:-4px;display:grid;place-items:center;width:32px;height:32px;border:3px solid #fff;border-radius:50%;background:var(--green);color:#fff;cursor:pointer}
+.pf-cam:focus-visible{outline:3px solid #f6b81a;outline-offset:2px}
+.pf-side h2{font-size:20px;font-weight:700;color:#142238}
+.pf-side p{margin-top:2px;font-size:14px;color:var(--muted)}
+.pf-badge{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:5px 14px;border-radius:999px;background:#e5edff;color:var(--green);font-size:12px;font-weight:700}
+
+.pf-main{padding:32px;border-radius:16px;background:#fff;box-shadow:0 2px 10px rgba(0,30,60,.05)}
+.pf-main-head{padding-bottom:18px;border-bottom:1px solid var(--line)}
+.pf-main-head h2{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:700;color:#142238}
+.pf-main-head h2 svg{color:var(--green)}
+.pf-main-head p{margin-top:2px;font-size:14px;color:var(--muted)}
+.pf-alert{margin-top:16px;padding:10px 14px;border-radius:8px;background:#dff7e9;color:#075b35;font-size:13px;font-weight:600}
+
+.pf-sec{padding:22px 0;border-bottom:1px solid var(--line)}
+.pf-sec:last-of-type{border-bottom:0}
+.pf-sec h3{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:17px;font-weight:600;color:#142238}
+.pf-sec h3 svg{color:var(--green)}
+.pf-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pf-field{margin-bottom:14px}
+.pf-field label{display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:#142238}
+
+/* Kolom hanya baca */
+.pf-ro{display:flex;align-items:center;gap:10px;height:44px;padding:0 14px;border-radius:8px;background:#eef3ff;color:#5b665d}
+.pf-ro input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:#2b3138}
+.pf-at{font-size:18px;font-weight:600}
+.pf-lock{color:#9aa4b2;flex-shrink:0}
+
+/* Kolom kata sandi */
+.pf-pw{position:relative}
+.pf-pw input{width:100%;height:46px;padding:0 46px 0 16px;border:1px solid #e7ecf6;border-radius:8px;background:#fff;box-shadow:0 1px 3px rgba(0,30,60,.05);font:inherit;font-size:14px;color:var(--ink);outline:0}
+.pf-pw input::placeholder{color:#9aa4b2}
+.pf-pw input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,70,31,.12)}
+.pf-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:8px;background:transparent;color:#2b3138;cursor:pointer}
+.pf-eye:hover{background:var(--panel)}
+.pf-eye .eye-off{display:none}
+.pf-eye.on .eye-on{display:none}
+.pf-eye.on .eye-off{display:block}
+.pf-error{display:block;margin-top:5px;font-size:12px;color:#dc2626}
+.pf-hint{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:12px;color:var(--muted)}
+.pf-hint svg{color:var(--green);flex-shrink:0}
+
+.pf-actions{display:flex;justify-content:flex-end;align-items:center;gap:28px;padding-top:20px;border-top:1px solid var(--line)}
+.pf-actions a{font-size:14px;font-weight:600;color:#2b3138}
+.pf-actions a:hover{text-decoration:underline}
+.pf-save{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border:0;border-radius:8px;background:var(--green);color:#fff;font:inherit;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 10px rgba(0,70,31,.18);transition:filter .15s}
+.pf-save:hover{filter:brightness(1.15)}
+.pf-save:focus-visible,.pf-eye:focus-visible{outline:3px solid #f6b81a;outline-offset:2px}
+
+@media (max-width:960px){.pf-grid{grid-template-columns:1fr}.m-topnav{display:none}}
+@media (max-width:540px){.pf-top h1{font-size:26px}.pf-cols{grid-template-columns:1fr}.pf-main,.pf-side{padding:20px}}

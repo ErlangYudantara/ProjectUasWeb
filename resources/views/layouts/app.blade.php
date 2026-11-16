@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/kantin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user-menu.css') }}">
     @stack('styles')
 </head>
 <body>
@@ -23,7 +24,7 @@
 
     <nav class="nav-links" aria-label="Navigasi utama">
         <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}">Beranda</a>
-        <a href="{{ url('/#stan') }}">Menu &amp; Pesanan</a>
+        <a href="{{ route('menu.index') }}">Menu &amp; Pesanan</a>
         <a href="{{ url('/pesanan') }}">Status Pesanan</a>
     </nav>
 
@@ -37,13 +38,7 @@
         @endguest
 
         @auth
-            <span class="user-name">{{ auth()->user()->nama }}</span>
-            @if (Route::has('logout'))
-                <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                    @csrf
-                    <button type="submit" class="btn btn-primary btn-sm">Keluar</button>
-                </form>
-            @endif
+            <x-user-menu />
         @endauth
     </div>
 </header>
@@ -65,5 +60,7 @@
     <div class="footer-copy">&copy; {{ date('Y') }} UPN Veteran Jakarta.</div>
 </footer>
 
+<script src="{{ asset('js/dropdown.js') }}" defer></script>
+@stack('scripts')
 </body>
 </html>
