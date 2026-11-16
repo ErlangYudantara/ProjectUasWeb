@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/kantin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menu.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user-menu.css') }}">
     @stack('styles')
 </head>
 <body>
@@ -20,22 +21,15 @@
         <span><strong>Kantin UPNVJ</strong><small>Green Campus</small></span>
     </a>
 
+    @hasSection('topnav')
+        <nav class="m-topnav" aria-label="Navigasi utama">@yield('topnav')</nav>
+    @endif
+
     <div class="m-actions">
         <a href="#" class="m-mitra"><x-icon name="store" :size="16" /> Mode Mitra Warung</a>
 
         @auth
-            <details class="m-user">
-                <summary class="m-avatar" aria-label="Menu akun"><x-icon name="user" :size="18" /></summary>
-                <div class="m-user-menu">
-                    <span>{{ auth()->user()->nama }}</span>
-                    @if (Route::has('logout'))
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit">Keluar</button>
-                        </form>
-                    @endif
-                </div>
-            </details>
+            <x-user-menu />
         @else
             <a href="{{ route('login') }}" class="btn btn-primary btn-sm">Masuk/Daftar</a>
         @endauth
@@ -58,6 +52,7 @@
     </div>
 </footer>
 
+<script src="{{ asset('js/dropdown.js') }}" defer></script>
 @stack('scripts')
 </body>
 </html>

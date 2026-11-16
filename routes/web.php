@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Pembeli\MenuController;
 use App\Http\Controllers\Pembeli\CartController;
+use App\Http\Controllers\ProfileController;
 
 // Landing Page
 Route::get('/', [LandingController::class, 'index'])
@@ -14,6 +15,7 @@ Route::get('/', [LandingController::class, 'index'])
 // Menu & Pesanan (bisa dibuka tamu maupun pengguna login)
 Route::get('/menu', [MenuController::class, 'index'])
     ->name('menu.index');
+
 // Keranjang
 Route::get('/keranjang', [CartController::class, 'index'])
     ->name('keranjang.index');
@@ -50,9 +52,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/penjual/dashboard', fn () => 'Dashboard penjual belum dibuat.')
         ->name('penjual.dashboard');
 
+    // Profil pengguna
+    Route::get('/profil', [ProfileController::class, 'show'])
+        ->name('profil');
+
+    Route::put('/profil/password', [ProfileController::class, 'updatePassword'])
+        ->name('profil.password');
+
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
-
 
 });
