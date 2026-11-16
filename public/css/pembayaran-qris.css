@@ -1,338 +1,391 @@
-.qris-page {
-    max-width: 1100px;
-    margin: 35px auto 60px;
-    padding: 0 20px;
-    color: #252525;
+/* Halaman Pembayaran QRIS - prefix qp- */
+.qp {
+    --green: #14532d;
+    --green-2: #166534;
+    --blue-bg: #e8effc;
+    --line: #e5eaf2;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 24px 60px;
+    color: #1e293b;
 }
 
-.qris-heading {
-    margin-bottom: 28px;
-}
-
-.qris-heading h1 {
-    font-size: 28px;
-    font-weight: 750;
-    margin-bottom: 8px;
-}
-
-.qris-heading p {
-    color: #777;
-    margin: 0;
-}
-
-.qris-steps {
+.qp-topbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 22px;
     gap: 12px;
-    margin-bottom: 35px;
     flex-wrap: wrap;
 }
 
-.qris-step {
-    display: flex;
+.qp-back {
+    background: #eaf3ee;
+    color: var(--green);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.qp-secure {
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: #999;
-    font-size: 13px;
-    font-weight: 600;
+    background: var(--blue-bg);
+    color: #334155;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 6px 14px;
+    border-radius: 20px;
 }
 
-.qris-step span {
-    width: 27px;
-    height: 27px;
-    display: grid;
-    place-items: center;
+.qp-secure i {
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: #eee;
+    background: var(--green-2);
 }
 
-.qris-step.done,
-.qris-step.active {
-    color: #198754;
-}
-
-.qris-step.done span,
-.qris-step.active span {
-    color: white;
-    background: #198754;
-}
-
-.qris-step-line {
-    width: 45px;
-    height: 2px;
-    background: #ddd;
-}
-
-.qris-grid {
-    display: grid;
-    grid-template-columns: 1fr 390px;
-    gap: 24px;
-    align-items: start;
-}
-
-.qris-card {
-    background: white;
-    border: 1px solid #eaeaea;
-    border-radius: 14px;
-    padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.035);
-}
-
-.qris-card h2 {
-    font-size: 18px;
-    font-weight: 750;
-    margin: 0 0 20px;
-}
-
-.qris-info-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 13px;
-    font-size: 14px;
-}
-
-.qris-info-row span:first-child {
-    color: #777;
-}
-
-.qris-stan {
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.qris-stan:last-child {
-    border-bottom: 0;
-}
-
-.qris-stan-title {
-    font-weight: 750;
-    margin-bottom: 12px;
-}
-
-.qris-menu-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    font-size: 14px;
-    margin: 9px 0;
-}
-
-.qris-menu-row small {
-    display: block;
-    color: #888;
-    margin-top: 3px;
-}
-
-.qris-note {
-    color: #777;
-    font-size: 12px;
-    font-style: italic;
-}
-
-.qris-total-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin: 13px 0;
-    font-size: 14px;
-}
-
-.qris-total-row.final {
-    border-top: 1px solid #eee;
-    padding-top: 17px;
-    margin-top: 17px;
-    font-weight: 800;
-    font-size: 18px;
-}
-
-.qris-total-row.final strong {
-    color: #198754;
-}
-
-.qris-payment-card {
-    text-align: center;
-    border: 1px solid #dceee4;
-}
-
-.qris-logo {
-    display: inline-block;
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    margin-bottom: 5px;
-}
-
-.qris-logo span {
-    color: #e52b36;
-}
-
-.qris-amount {
-    font-size: 27px;
-    font-weight: 800;
-    margin: 15px 0 5px;
-}
-
-.qris-demo-label {
-    display: inline-block;
-    color: #986515;
-    background: #fff5d9;
-    border-radius: 30px;
-    padding: 6px 12px;
-    font-size: 11px;
-    font-weight: 750;
-    margin: 10px 0 17px;
-}
-
-.qris-placeholder {
-    width: 210px;
-    height: 210px;
-    margin: 0 auto 15px;
-    border: 9px solid white;
-    outline: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
-    background-image: repeating-conic-gradient(#222 0% 25%, white 0% 50%);
-    background-size: 14px 14px;
-    position: relative;
-    overflow: hidden;
-}
-
-.qris-placeholder::after {
-    content: "DEMO";
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    background: rgba(255, 255, 255, 0.88);
-    color: #555;
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: 3px;
-}
-
-.qris-warning {
-    color: #99701b;
-    background: #fff8e8;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 12px;
-    line-height: 1.6;
-    text-align: left;
-    margin: 15px 0;
-}
-
-.qris-reference {
-    background: #f7f7f7;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    margin: 15px 0;
-}
-
-.qris-button {
-    display: block;
-    width: 100%;
-    padding: 13px 18px;
-    border: 0;
-    border-radius: 9px;
-    background: #198754;
-    color: white;
-    font-weight: 750;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.qris-button:hover {
-    background: #146c43;
-    color: white;
-}
-
-.qris-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-.qris-secondary {
-    display: block;
-    margin-top: 12px;
-    color: #198754;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 650;
-}
-
-.qris-guide {
-    display: grid;
-    gap: 15px;
-}
-
-.qris-guide-item {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-.qris-guide-number {
-    min-width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    color: white;
-    background: #198754;
-    font-weight: 750;
-}
-
-.qris-alert {
+.qp-alert {
     padding: 13px 16px;
-    border-radius: 9px;
+    border-radius: 10px;
     background: #eaf7ef;
     color: #17683f;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-size: 14px;
 }
 
-.qris-alert.error {
+.qp-alert.error {
     background: #fff0f0;
     color: #a52c2c;
 }
 
-@media (max-width: 800px) {
-    .qris-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .qris-page {
-        margin-top: 22px;
-        padding: 0 14px;
-    }
-
-    .qris-card {
-        padding: 18px;
-    }
-
-    .qris-heading h1 {
-        font-size: 23px;
-    }
+.qp-grid {
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    gap: 32px;
+    align-items: start;
 }
 
-@media (max-width: 480px) {
-    .qris-steps {
-        gap: 6px;
-    }
+.qp-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 14px rgba(15, 23, 42, 0.06);
+}
 
-    .qris-step {
-        font-size: 10px;
-        gap: 5px;
-    }
+.qp-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
 
-    .qris-step-line {
-        width: 15px;
-    }
+.qp-card-head h2 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--green);
+}
+
+.qp-muted {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.qp-pill {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.qp-pill.green { background: #d7f5dd; color: #166534; }
+.qp-pill.orange { background: #fde8b8; color: #92580a; }
+.qp-pill.blue { background: var(--blue-bg); color: #1e3a8a; }
+
+/* Informasi pemesanan */
+.qp-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.qp-info-grid.single { grid-template-columns: 1fr; }
+
+.qp-box {
+    background: #eef2f7;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.qp-box.blue { background: var(--blue-bg); }
+
+.qp-box small {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.4px;
+    margin-bottom: 8px;
+}
+
+.qp-box strong { display: block; font-size: 18px; color: var(--green); }
+.qp-box span { font-size: 12px; color: #64748b; }
+
+.qp-toggle { display: flex; gap: 8px; }
+
+.qp-toggle span {
+    flex: 1;
+    text-align: center;
+    padding: 10px 8px;
+    border-radius: 8px;
+    background: #fff;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.qp-toggle span.on { background: var(--green); color: #fff; }
+
+/* Rincian menu */
+.qp-stan {
+    background: var(--blue-bg);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 18px;
+}
+
+.qp-stan-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.qp-stan-head > div { flex: 1; }
+.qp-stan-head h3 { margin: 0; font-size: 18px; color: var(--green); }
+.qp-stan-head small { font-size: 12px; color: #64748b; }
+
+.qp-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+.qp-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.qp-item img,
+.qp-noimg {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+.qp-item-info { flex: 1; min-width: 0; }
+.qp-item-info strong { display: block; font-size: 15px; }
+.qp-item-info small { font-size: 12px; color: #64748b; }
+
+.qp-item-price { text-align: right; }
+.qp-item-price small { display: block; font-size: 11px; color: #64748b; }
+.qp-item-price strong { font-size: 18px; color: var(--green); }
+
+/* Ringkasan biaya */
+.qp-sum {
+    background: var(--blue-bg);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 8px;
+}
+
+.qp-sum-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #475569;
+}
+
+.qp-sum-row s { color: #94a3b8; margin-right: 6px; }
+
+.qp-free {
+    background: #d7f5dd;
+    color: #166534;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.qp-sum-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #c9d5ea;
+    padding-top: 16px;
+    margin-top: 6px;
+}
+
+.qp-sum-total strong { font-size: 18px; color: var(--green); }
+.qp-sum-total small { display: block; font-size: 10px; font-weight: 600; color: #475569; margin-top: 3px; }
+.qp-total-amount { font-size: 28px !important; }
+
+/* Kartu pembayaran */
+.qp-right { position: sticky; top: 16px; }
+
+.qp-pay { padding: 18px; }
+
+.qp-pay-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #eef4ff, #e6f8ec);
+    border-radius: 12px;
+    padding: 10px 14px;
+}
+
+.qp-pay-head strong { display: block; font-size: 14px; }
+.qp-pay-head small { font-size: 11px; color: #64748b; }
+
+.qp-merchant {
+    display: flex;
+    justify-content: space-between;
+    background: var(--blue-bg);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 11px;
+    color: #475569;
+    gap: 8px;
+}
+
+.qp-merchant b { color: #0f172a; font-weight: 600; text-align: right; }
+
+.qp-timer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fdecec;
+    color: #b91c1c;
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.qp-timer strong { font-size: 26px; letter-spacing: 1px; }
+
+.qp-qr {
+    width: 280px;
+    max-width: 100%;
+    margin: 18px auto 14px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px 28px 14px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
+    text-align: center;
+}
+
+.qp-qr svg { width: 100%; height: auto; display: block; }
+.qp-qr small { display: block; margin-top: 12px; font-size: 10px; font-weight: 600; color: #334155; }
+
+.qp-wallets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.qp-wallets span {
+    background: var(--blue-bg);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.qp-btn {
+    display: block;
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.qp-btn.primary { background: var(--green); color: #fff; }
+.qp-btn.primary:hover { background: #0f4023; }
+.qp-btn.soft { background: var(--blue-bg); color: var(--green); font-size: 14px; padding: 12px; }
+.qp-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.qp-demo-note {
+    text-align: center;
+    font-size: 11px;
+    color: #99701b;
+    background: #fff8e8;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 4px 0 0;
+}
+
+/* Langkah pembayaran */
+.qp-steps { padding: 18px; }
+.qp-steps h4 { margin: 0 0 14px; font-size: 14px; }
+
+.qp-steps div {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.qp-steps span {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--blue-bg);
+    color: #334155;
+    font-size: 11px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+}
+
+.qp-steps p { margin: 0; font-size: 13px; line-height: 1.5; color: #334155; }
+
+@media (max-width: 980px) {
+    .qp-grid { grid-template-columns: 1fr; }
+    .qp-right { position: static; }
+}
+
+@media (max-width: 560px) {
+    .qp { padding: 14px 12px 40px; }
+    .qp-info-grid { grid-template-columns: 1fr; }
+    .qp-card { padding: 16px; }
 }
