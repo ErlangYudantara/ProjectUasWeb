@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Pembeli\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Auth\LoginController;
@@ -62,5 +62,13 @@ Route::middleware('auth')->group(function () {
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
+    Route::post('/checkout', [CheckoutController::class, 'store'])
+    ->name('checkout.store');
+
+    Route::get('/pembayaran/{id}', [CheckoutController::class, 'show'])
+        ->name('pembayaran.show');
+
+    Route::post('/pembayaran/{id}/simulasi', [CheckoutController::class, 'simulatePayment'])
+        ->name('pembayaran.simulasi');
 
 });

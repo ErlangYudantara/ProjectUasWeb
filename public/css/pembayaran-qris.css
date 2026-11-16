@@ -1,0 +1,338 @@
+.qris-page {
+    max-width: 1100px;
+    margin: 35px auto 60px;
+    padding: 0 20px;
+    color: #252525;
+}
+
+.qris-heading {
+    margin-bottom: 28px;
+}
+
+.qris-heading h1 {
+    font-size: 28px;
+    font-weight: 750;
+    margin-bottom: 8px;
+}
+
+.qris-heading p {
+    color: #777;
+    margin: 0;
+}
+
+.qris-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.qris-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #999;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.qris-step span {
+    width: 27px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #eee;
+}
+
+.qris-step.done,
+.qris-step.active {
+    color: #198754;
+}
+
+.qris-step.done span,
+.qris-step.active span {
+    color: white;
+    background: #198754;
+}
+
+.qris-step-line {
+    width: 45px;
+    height: 2px;
+    background: #ddd;
+}
+
+.qris-grid {
+    display: grid;
+    grid-template-columns: 1fr 390px;
+    gap: 24px;
+    align-items: start;
+}
+
+.qris-card {
+    background: white;
+    border: 1px solid #eaeaea;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.035);
+}
+
+.qris-card h2 {
+    font-size: 18px;
+    font-weight: 750;
+    margin: 0 0 20px;
+}
+
+.qris-info-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 13px;
+    font-size: 14px;
+}
+
+.qris-info-row span:first-child {
+    color: #777;
+}
+
+.qris-stan {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.qris-stan:last-child {
+    border-bottom: 0;
+}
+
+.qris-stan-title {
+    font-weight: 750;
+    margin-bottom: 12px;
+}
+
+.qris-menu-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    font-size: 14px;
+    margin: 9px 0;
+}
+
+.qris-menu-row small {
+    display: block;
+    color: #888;
+    margin-top: 3px;
+}
+
+.qris-note {
+    color: #777;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.qris-total-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 13px 0;
+    font-size: 14px;
+}
+
+.qris-total-row.final {
+    border-top: 1px solid #eee;
+    padding-top: 17px;
+    margin-top: 17px;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.qris-total-row.final strong {
+    color: #198754;
+}
+
+.qris-payment-card {
+    text-align: center;
+    border: 1px solid #dceee4;
+}
+
+.qris-logo {
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 5px;
+}
+
+.qris-logo span {
+    color: #e52b36;
+}
+
+.qris-amount {
+    font-size: 27px;
+    font-weight: 800;
+    margin: 15px 0 5px;
+}
+
+.qris-demo-label {
+    display: inline-block;
+    color: #986515;
+    background: #fff5d9;
+    border-radius: 30px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 750;
+    margin: 10px 0 17px;
+}
+
+.qris-placeholder {
+    width: 210px;
+    height: 210px;
+    margin: 0 auto 15px;
+    border: 9px solid white;
+    outline: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    background-image: repeating-conic-gradient(#222 0% 25%, white 0% 50%);
+    background-size: 14px 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.qris-placeholder::after {
+    content: "DEMO";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.88);
+    color: #555;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.qris-warning {
+    color: #99701b;
+    background: #fff8e8;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: left;
+    margin: 15px 0;
+}
+
+.qris-reference {
+    background: #f7f7f7;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin: 15px 0;
+}
+
+.qris-button {
+    display: block;
+    width: 100%;
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 9px;
+    background: #198754;
+    color: white;
+    font-weight: 750;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.qris-button:hover {
+    background: #146c43;
+    color: white;
+}
+
+.qris-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.qris-secondary {
+    display: block;
+    margin-top: 12px;
+    color: #198754;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.qris-guide {
+    display: grid;
+    gap: 15px;
+}
+
+.qris-guide-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.qris-guide-number {
+    min-width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: white;
+    background: #198754;
+    font-weight: 750;
+}
+
+.qris-alert {
+    padding: 13px 16px;
+    border-radius: 9px;
+    background: #eaf7ef;
+    color: #17683f;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.qris-alert.error {
+    background: #fff0f0;
+    color: #a52c2c;
+}
+
+@media (max-width: 800px) {
+    .qris-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .qris-page {
+        margin-top: 22px;
+        padding: 0 14px;
+    }
+
+    .qris-card {
+        padding: 18px;
+    }
+
+    .qris-heading h1 {
+        font-size: 23px;
+    }
+}
+
+@media (max-width: 480px) {
+    .qris-steps {
+        gap: 6px;
+    }
+
+    .qris-step {
+        font-size: 10px;
+        gap: 5px;
+    }
+
+    .qris-step-line {
+        width: 15px;
+    }
+}
