@@ -88,12 +88,6 @@
         <p class="k-note">Nomor antrean dan QR pickup terbit otomatis setelah verifikasi pembayaran QRIS berhasil.</p>
     </aside>
 </div>
-
-{{-- BAR BAYAR (hanya tampil di mobile) --}}
-<div class="k-mobbar">
-    <div class="k-mobtotal"><small>Total Tagihan</small><strong id="kMobTotal">Rp 0</strong></div>
-    <button type="button" class="k-mobpay" id="kMobPay" disabled>Bayar QRIS</button>
-</div>
 @endsection
 
 @push('scripts')

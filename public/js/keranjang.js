@@ -167,10 +167,6 @@
         elTotal.textContent = rupiah(total);
 
         elPay.disabled = !(loaded && qty > 0 && bermasalah === 0);
-        var mobTotal = document.getElementById('kMobTotal');
-       var mobPay = document.getElementById('kMobPay');
-       if (mobTotal) mobTotal.textContent = rupiah(total);
-       if (mobPay) mobPay.disabled = elPay.disabled;
         if (bermasalah) {
             elWarn.hidden = false;
             elWarn.textContent = bermasalah + ' menu tidak tersedia. Hapus dulu untuk melanjutkan.';
@@ -230,6 +226,5 @@
         if (e.persisted) { items = load(); fetchDetail(); }
     });
 
-    
     fetchDetail();
 })();
