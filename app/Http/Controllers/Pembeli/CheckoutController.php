@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\OrderStatusHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -199,7 +200,8 @@ class CheckoutController extends Controller
             ->findOrFail($id);
 
         if ($order->payment->status_pembayaran === 'berhasil') {
-            return back()->with('success', 'Pembayaran sudah berhasil.');
+            return $this->redirectKeStatusPesanan()
+                ->with('success', 'Pembayaran sudah berhasil.');
         }
 
         if ($order->payment->status_pembayaran !== 'pending') {
@@ -229,8 +231,20 @@ class CheckoutController extends Controller
             ]);
         });
 
-        return redirect()
-            ->route('pembayaran.show', $order->id)
-            ->with('success', 'Simulasi pembayaran berhasil.');
+        return $this->redirectKeStatusPesanan()
+            ->with('success', 'Pembayaran berhasil. Pesananmu menunggu konfirmasi stan.');
+    }
+
+    /**
+     * Arahkan ke halaman Status Pesanan.
+     * Jika route 'pesanan.status' belum dibuat, sementara
+     * diarahkan ke daftar menu supaya tidak error 404/500.
+     * Ganti 'pesanan.status' dengan nama route aslimu.
+     */
+    private function redirectKeStatusPesanan()
+    {
+        return Route::has('pesanan.status')
+            ? redirect()->route('pesanan.status')
+            : redirect()->route('menu.index');
     }
 }
