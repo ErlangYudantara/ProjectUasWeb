@@ -1,34 +1,49 @@
-@extends('layouts.pembeli') {{-- CEK: samakan dengan @extends di versi sebelumnya (jangan diubah kalau tadi sudah jalan) --}}
+@extends('layouts.pembeli')
 
 @push('styles')
+    <link rel="stylesheet" href="{{ asset('css/keranjang.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pembayaran-qris.css') }}">
 @endpush
 
-@section('content') {{-- CEK: samakan nama section dengan versi sebelumnya --}}
+@section('content')
 @php
     $user = auth()->user();
-    $namaPemesan = $user->name ?? $user->nama ?? 'Pembeli';
-    $nim = $user->nim ?? null;
-    $fakultas = $user->fakultas ?? null;
+    $namaPemesan = $user->nama ?? 'Pembeli';
+    $identitas = collect([$user->nomor_identitas ?? null, ucfirst($user->role ?? '')])->filter()->implode(' • ');
 
-    // CEK: nama kolom metode konsumsi di tabel orders (kalau tidak ada, kotaknya disembunyikan)
-    $metode = $order->metode_konsumsi ?? $order->tipe_pesanan ?? null;
-    $noMeja = $order->nomor_meja ?? $order->no_meja ?? null;
-    $isDineIn = $metode && str_contains(strtolower($metode), 'dine');
+    $isBungkus = ($order->opsi_penyajian ?? 'makan') === 'bungkus';
 
     $perStan = $order->details->groupBy(fn ($d) => $d->menu->tenant_id ?? 0);
     $subtotal = $order->details->sum('subtotal');
+    $total = (float) $order->total_harga;          // sama dengan jumlah yang dibayar
+    $diskon = max($subtotal - $total, 0);
     $biayaLayanan = 2000;
-    $total = $subtotal; // biaya layanan gratis, subsidi Rp 0
-    $jumlahMenu = $order->details->count();
+    $jumlahMenu = $order->details->sum('jumlah');
     $referensi = 'ORD-' . str_pad($order->id, 5, '0', STR_PAD_LEFT);
 @endphp
+
+{{-- STEPPER --}}
+<ol class="k-steps" aria-label="Langkah pemesanan">
+    <li class="done">
+        <span class="k-step-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span><small>Langkah 01</small><strong>Pilih Menu</strong></span>
+    </li>
+    <li class="line done"></li>
+    <li class="done">
+        <span class="k-step-dot"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span><small>Langkah 02</small><strong>Keranjang Pesanan</strong></span>
+    </li>
+    <li class="line done"></li>
+    <li class="on">
+        <span class="k-step-dot">3</span>
+        <span><small>Langkah 03</small><strong>Pembayaran QRIS</strong></span>
+    </li>
+</ol>
 
 <div class="qp">
 
     <div class="qp-topbar">
-        {{-- CEK: ganti url('/') dengan halaman menu makanan --}}
-        <a href="{{ url('/menu') }}" class="qp-back">&larr; Kembali ke Menu Makanan</a>
+        <a href="{{ route('menu.index') }}" class="qp-back">&larr; Kembali ke Menu Makanan</a>
         <span class="qp-secure"><i></i> SESI PEMBAYARAN AMAN &bull; MODE DEMO</span>
     </div>
 
@@ -46,26 +61,20 @@
                     <span class="qp-pill green">SIVITAS UPNVJ</span>
                 </div>
 
-                <div class="qp-info-grid {{ $metode ? '' : 'single' }}">
+                <div class="qp-info-grid">
                     <div class="qp-box">
                         <small>PEMESAN</small>
                         <strong>{{ $namaPemesan }}</strong>
-                        @if ($nim || $fakultas)
-                            <span>{{ $nim }}{{ $nim && $fakultas ? ' • ' : '' }}{{ $fakultas }}</span>
-                        @endif
+                        @if ($identitas) <span>{{ $identitas }}</span> @endif
                     </div>
 
-                    @if ($metode)
-                        <div class="qp-box blue">
-                            <small>METODE KONSUMSI</small>
-                            <div class="qp-toggle">
-                                <span class="{{ $isDineIn ? 'on' : '' }}">
-                                    Dine In{{ $noMeja ? ' (Meja '.$noMeja.')' : '' }}
-                                </span>
-                                <span class="{{ $isDineIn ? '' : 'on' }}">Bawa Pulang</span>
-                            </div>
+                    <div class="qp-box blue">
+                        <small>METODE KONSUMSI</small>
+                        <div class="qp-toggle">
+                            <span class="{{ $isBungkus ? '' : 'on' }}">Makan di Tempat</span>
+                            <span class="{{ $isBungkus ? 'on' : '' }}">Bungkus (Take Away)</span>
                         </div>
-                    @endif
+                    </div>
                 </div>
             </section>
 
@@ -78,33 +87,30 @@
                 @foreach ($perStan as $tenantId => $items)
                     @php
                         $tenant = optional($items->first()->menu)->tenant;
-                        $lokasi = $tenant->lokasi ?? null; // CEK: nama kolom lokasi stan
+                        $lokasi = $tenant->lokasi ?? null;
                     @endphp
                     <div class="qp-stan">
                         <div class="qp-stan-head">
                             <span class="qp-num">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                             <div>
-                                <h3>{{ $tenant->nama_stan ?? $tenant->nama ?? 'Stan #'.$tenantId }}</h3>
+                                <h3>{{ $tenant->nama_stan ?? 'Stan #'.$tenantId }}</h3>
                                 @if ($lokasi) <small>{{ $lokasi }}</small> @endif
                             </div>
                             <span class="qp-pill orange">Stand #{{ str_pad($tenantId, 2, '0', STR_PAD_LEFT) }}</span>
                         </div>
 
                         @foreach ($items as $d)
-                            @php
-                                $foto = $d->menu->foto ?? $d->menu->gambar ?? null; // CEK: nama kolom foto menu
-                                $opsi = $d->opsi_penyajian ?? null;                  // CEK: kolom opsi_penyajian
-                            @endphp
+                            @php $foto = optional($d->menu)->foto_url; @endphp
                             <div class="qp-item">
                                 @if ($foto)
-                                    <img src="{{ asset('storage/'.$foto) }}" alt="" onerror="this.style.visibility='hidden'">
+                                    <img src="{{ $foto }}" alt="{{ $d->menu->nama_menu }}" loading="lazy">
                                 @else
                                     <div class="qp-noimg"></div>
                                 @endif
                                 <div class="qp-item-info">
-                                    <strong>{{ $d->menu->nama_menu ?? $d->menu->nama ?? 'Menu' }}</strong>
-                                    @if ($opsi || $d->catatan)
-                                        <small>{{ collect([$opsi, $d->catatan])->filter()->implode(' • ') }}</small>
+                                    <strong>{{ $d->menu->nama_menu ?? 'Menu' }}</strong>
+                                    @if ($d->catatan)
+                                        <small>Catatan: {{ $d->catatan }}</small>
                                     @endif
                                 </div>
                                 <div class="qp-item-price">
@@ -122,7 +128,7 @@
                         <span>Biaya Layanan Platform</span>
                         <span><s>Rp {{ number_format($biayaLayanan, 0, ',', '.') }}</s> <b class="qp-free">GRATIS</b></span>
                     </div>
-                    <div class="qp-sum-row"><span>Subsidi Mahasiswa Bela Negara</span><span>- Rp 0</span></div>
+                    <div class="qp-sum-row"><span>Diskon Wadah Hijau</span><span>- Rp {{ number_format($diskon, 0, ',', '.') }}</span></div>
                     <div class="qp-sum-total">
                         <div>
                             <strong>Total Pembayaran</strong>
@@ -183,11 +189,11 @@
                     @endforeach
                 </div>
 
-                <form method="POST" action="{{ route('pembayaran.simulasi', $order->id) }}">
+                {{-- Satu-satunya tombol: bayar lalu pindah ke Status Pesanan --}}
+                <form method="POST" action="{{ route('pembayaran.simulasi', $order->id) }}" id="qp-pay-form">
                     @csrf
                     <button type="submit" id="qp-pay-btn" class="qp-btn primary">&#10003; Saya Sudah Membayar</button>
                 </form>
-                <button type="button" class="qp-btn soft" onclick="window.location.reload()">&#8635; Cek Status Otomatis</button>
 
                 <p class="qp-demo-note">Ini simulasi pembayaran untuk keperluan tugas. Tidak ada transaksi uang sungguhan.</p>
             </section>
@@ -205,15 +211,18 @@
 
 <script>
     (function () {
-        var sisa = 5 * 60; // 5 menit, dihitung dari saat halaman dibuka
+        var sisa = 5 * 60;
         var el = document.getElementById('qp-countdown');
         var btn = document.getElementById('qp-pay-btn');
+        var form = document.getElementById('qp-pay-form');
+
         function tampil() {
             var m = String(Math.floor(sisa / 60)).padStart(2, '0');
             var s = String(sisa % 60).padStart(2, '0');
             el.textContent = m + ':' + s;
         }
         tampil();
+
         var t = setInterval(function () {
             sisa--;
             if (sisa <= 0) {
@@ -225,6 +234,12 @@
             }
             tampil();
         }, 1000);
+
+        // Cegah klik ganda
+        form.addEventListener('submit', function () {
+            btn.disabled = true;
+            btn.textContent = 'Memproses...';
+        });
     })();
 </script>
 @endsection

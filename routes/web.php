@@ -62,13 +62,19 @@ Route::middleware('auth')->group(function () {
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])
         ->name('logout');
+
+    // Checkout & pembayaran
     Route::post('/checkout', [CheckoutController::class, 'store'])
-    ->name('checkout.store');
+        ->name('checkout.store');
 
     Route::get('/pembayaran/{id}', [CheckoutController::class, 'show'])
         ->name('pembayaran.show');
 
     Route::post('/pembayaran/{id}/simulasi', [CheckoutController::class, 'simulatePayment'])
         ->name('pembayaran.simulasi');
+
+    // Status Pesanan (placeholder sampai halaman aslinya dibuat)
+    Route::get('/status-pesanan', fn () => 'Halaman status pesanan belum dibuat.')
+        ->name('pesanan.status');
 
 });
