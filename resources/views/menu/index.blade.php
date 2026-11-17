@@ -3,6 +3,9 @@
 @section('title', 'Menu & Pesanan - Kantin UPNVJ')
 
 @section('content')
+@section('topnav')
+    @include('layouts._topnav')
+@endsection
 
 {{-- HERO --}}
 <section class="m-hero">

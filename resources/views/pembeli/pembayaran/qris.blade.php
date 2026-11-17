@@ -6,6 +6,9 @@
 @endpush
 
 @section('content')
+@section('topnav')
+    @include('layouts._topnav')
+@endsection
 @php
     $user = auth()->user();
     $namaPemesan = $user->nama ?? 'Pembeli';

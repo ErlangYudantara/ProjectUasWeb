@@ -7,6 +7,9 @@
 @endpush
 
 @section('content')
+@section('topnav')
+    @include('layouts._topnav')
+@endsection
 
 {{-- STEPPER --}}
 <ol class="k-steps" aria-label="Langkah pemesanan">

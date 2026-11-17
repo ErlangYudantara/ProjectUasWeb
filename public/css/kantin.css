@@ -116,3 +116,13 @@ img{display:block;max-width:100%}
     .footer-info{flex-direction:column;gap:6px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.card,.step,.tenant-photo img{transition:none}.card:hover,.card:focus-within,.step:hover{transform:none}.card:hover .tenant-photo img{transform:none}}
+/* NAVBAR PEMBELI (layout pembeli) */
+.m-topnav{display:flex;align-items:center;justify-content:center;gap:8px}
+.m-topnav a{padding:8px 16px;border-radius:8px;font-size:15px;font-weight:500;color:#2b3138;white-space:nowrap;transition:background .15s,color .15s}
+.m-topnav a:not(.active):hover{background:var(--panel)}
+.m-topnav a.active{background:var(--green-2);color:var(--white);font-weight:600}
+.m-topnav a:focus-visible{outline:3px solid #f6b81a;outline-offset:2px}
+
+@media (max-width:640px){
+    .m-topnav{display:none}
+}
