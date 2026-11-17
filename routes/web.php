@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\Pembeli\CheckoutController;
+use App\Http\Controllers\Pembeli\StatusPesananController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Auth\LoginController;
@@ -76,5 +77,8 @@ Route::middleware('auth')->group(function () {
     // Status Pesanan (placeholder sampai halaman aslinya dibuat)
     Route::get('/status-pesanan', fn () => 'Halaman status pesanan belum dibuat.')
         ->name('pesanan.status');
+
+    Route::get('/status-pesanan/{id}', [StatusPesananController::class, 'show'])
+    ->name('status-pesanan.show');
 
 });

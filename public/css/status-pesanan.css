@@ -1,0 +1,689 @@
+/* =========================================
+   HALAMAN STATUS PESANAN - KANTIN UPNVJ
+========================================= */
+
+.status-page {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 25px 22px 60px;
+    color: #15263c;
+}
+
+/* =========================================
+   NOTIFICATION
+========================================= */
+
+.status-notification {
+    position: fixed;
+    top: 88px;
+    left: 40px;
+    z-index: 9999;
+
+    width: 345px;
+    max-width: calc(100vw - 30px);
+
+    background: #fff;
+    border-radius: 9px;
+    padding: 13px 14px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+
+    animation: notificationEnter 0.35s ease-out;
+}
+
+.notification-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 27px;
+}
+
+.notification-heading h2 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+    color: #333;
+}
+
+.notification-close {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font-size: 24px;
+    color: #444;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 2px;
+}
+
+.notification-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    background: #e1f5ee;
+    color: #08764b;
+
+    display: grid;
+    place-items: center;
+}
+
+.notification-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.notification-content div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.notification-content strong {
+    font-size: 11px;
+    color: #333;
+}
+
+.notification-content small {
+    font-size: 10px;
+    color: #aaa;
+}
+
+.status-notification.notification-hide {
+    animation: notificationLeave 0.3s ease forwards;
+}
+
+@keyframes notificationEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes notificationLeave {
+    to {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+}
+
+/* =========================================
+   MAIN CARD
+========================================= */
+
+.status-main-card {
+    width: 100%;
+    max-width: 1160px;
+
+    margin: 105px auto 0;
+    padding: 30px 28px 47px;
+
+    background: #fff;
+    border-radius: 13px;
+
+    box-shadow: 0 13px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================
+   INFORMASI TRANSAKSI
+========================================= */
+
+.status-transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 11px;
+    color: #536052;
+}
+
+.status-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    background: #eef3ff;
+    padding: 5px 11px;
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.status-time svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* =========================================
+   NOMOR ANTREAN
+========================================= */
+
+.status-queue {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.status-queue > small {
+    display: block;
+    font-size: 9px;
+    font-weight: 750;
+    letter-spacing: 0.5px;
+    color: #566255;
+    margin-bottom: 4px;
+}
+
+.queue-number {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #eef3ff;
+    border-radius: 12px;
+
+    min-width: 197px;
+    padding: 7px 20px 10px;
+}
+
+.queue-number strong {
+    color: #08603a;
+    font-size: 37px;
+    line-height: 1.2;
+    font-weight: 850;
+}
+
+.queue-number span {
+    color: #946000;
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* =========================================
+   STATUS UTAMA
+========================================= */
+
+.status-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 12px;
+}
+
+.status-title h1 {
+    font-size: 29px;
+    line-height: 1.2;
+    font-weight: 800;
+    margin: 0;
+    color: #15263c;
+}
+
+.status-title-icon {
+    width: 27px;
+    height: 27px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    background: #ffe2bd;
+    color: #17304b;
+    font-size: 19px;
+}
+
+.status-estimate {
+    width: fit-content;
+    margin: 7px auto 0;
+    padding: 9px 14px;
+
+    border-radius: 25px;
+    background: #e9f0ff;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.status-estimate > span {
+    color: #087345;
+    font-size: 17px;
+}
+
+.status-estimate strong {
+    color: #17633e;
+    font-size: 14px;
+}
+
+.status-estimate small {
+    color: #697586;
+    font-size: 10px;
+}
+
+/* =========================================
+   PROGRESS PESANAN
+========================================= */
+
+.status-progress {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+
+    margin: 55px 0 55px;
+    text-align: center;
+}
+
+.progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+    color: #8a938f;
+}
+
+.progress-icon {
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    background: #eaf0ff;
+    color: #8895a6;
+
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.progress-icon svg {
+    width: 17px;
+    height: 17px;
+}
+
+.progress-item.completed .progress-icon,
+.progress-item.current .progress-icon {
+    background: #08643b;
+    color: #fff;
+}
+
+.progress-item.current .progress-icon {
+    outline: 4px solid #c8ebd4;
+}
+
+.progress-item strong {
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.progress-item.completed strong,
+.progress-item.current strong {
+    color: #08643b;
+}
+
+.progress-item small {
+    font-size: 10px;
+}
+
+.progress-item.current small {
+    background: #ffedd4;
+    color: #966000;
+
+    padding: 3px 8px;
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 750;
+}
+
+/* =========================================
+   DETAIL GRID
+========================================= */
+
+.status-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.status-detail-box {
+    background: #edf2ff;
+    border-radius: 12px;
+    padding: 18px 16px;
+    min-width: 0;
+    min-height: 185px;
+}
+
+.detail-box-heading {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 13px;
+}
+
+.detail-box-heading svg {
+    width: 16px;
+    height: 16px;
+    color: #08643b;
+    flex-shrink: 0;
+}
+
+.detail-box-heading strong {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.menu-count {
+    margin-left: auto;
+    background: #e3ebfa;
+    color: #68778b;
+
+    padding: 3px 7px;
+    font-size: 9px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* =========================================
+   LOKASI PENGAMBILAN
+========================================= */
+
+.pickup-stan {
+    padding-left: 24px;
+    margin-bottom: 15px;
+}
+
+.pickup-stan-name {
+    display: block;
+    color: #08643b;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.pickup-stan p {
+    font-size: 11px;
+    color: #5f6976;
+    margin: 5px 0 7px;
+}
+
+.pickup-stan > small {
+    color: #976500;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.pickup-status {
+    display: block;
+    color: #087345;
+    font-size: 10px;
+    font-weight: 750;
+    text-transform: capitalize;
+    margin-top: 8px;
+}
+
+.pickup-time {
+    margin: 22px 0 0 24px;
+    font-size: 10px;
+    color: #6c756f;
+}
+
+/* =========================================
+   RINGKASAN MENU
+========================================= */
+
+.status-menu-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.menu-qty {
+    background: #c9ebd8;
+    color: #087345;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    padding: 6px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.menu-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    min-width: 0;
+    flex: 1;
+}
+
+.menu-info strong {
+    font-size: 10px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.menu-info small {
+    font-size: 9px;
+    color: #777;
+}
+
+.menu-price {
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.status-menu-total {
+    border-top: 1px solid #d0dbef;
+
+    padding-top: 12px;
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-menu-total > span {
+    font-size: 10px;
+    color: #5c6671;
+}
+
+.status-menu-total > strong {
+    font-size: 17px;
+    color: #08643b;
+    white-space: nowrap;
+}
+
+.status-menu-total small {
+    font-size: 8px;
+    color: #966000;
+    font-weight: 500;
+}
+
+/* =========================================
+   TOMBOL PESAN MENU LAIN
+========================================= */
+
+.status-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 42px;
+}
+
+.status-order-again {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background: #08643b;
+    color: #fff;
+    text-decoration: none;
+
+    padding: 11px 23px;
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: 750;
+
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+.status-order-again:hover {
+    background: #064b2d;
+    color: #fff;
+}
+
+.status-order-again span {
+    font-size: 18px;
+}
+
+/* =========================================
+   INFORMASI TAMBAHAN
+========================================= */
+
+.status-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.benefit-item {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 11px;
+
+    text-align: center;
+    padding: 13px 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.benefit-item > span {
+    color: #087345;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.benefit-item strong {
+    font-size: 10px;
+    color: #15263c;
+}
+
+.benefit-item p {
+    color: #68716d;
+    font-size: 10px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+    .status-page {
+        padding: 20px 14px 40px;
+    }
+
+    .status-notification {
+        top: 82px;
+        left: 12px;
+        width: min(345px, calc(100vw - 24px));
+    }
+
+    .status-main-card {
+        margin-top: 90px;
+        padding: 20px 15px 27px;
+    }
+
+    .status-transaction {
+        font-size: 9px;
+    }
+
+    .status-time {
+        font-size: 9px;
+    }
+
+    .queue-number strong {
+        font-size: 32px;
+    }
+
+    .status-title h1 {
+        font-size: 21px;
+    }
+
+    .status-estimate {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .status-progress {
+        margin: 38px 0;
+        gap: 5px;
+    }
+
+    .progress-item strong {
+        font-size: 9px;
+    }
+
+    .progress-item small {
+        font-size: 8px;
+    }
+
+    .status-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .status-benefits {
+        grid-template-columns: 1fr;
+    }
+
+    .status-actions {
+        margin-top: 25px;
+    }
+
+    .status-order-again {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .status-title h1 {
+        font-size: 18px;
+    }
+
+    .progress-item strong {
+        font-size: 8px;
+    }
+
+    .status-main-card {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}

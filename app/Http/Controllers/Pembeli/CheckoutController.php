@@ -10,7 +10,6 @@ use App\Models\Payment;
 use App\Models\OrderStatusHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -32,8 +31,6 @@ class CheckoutController extends Controller
 
         $order = DB::transaction(function () use ($validated, $request) {
 
-            // Ambil ulang semua menu dari database.
-            // Harga dan stok tidak dipercaya dari browser.
             $menuIds = collect($validated['items'])
                 ->pluck('id')
                 ->sort()
@@ -75,7 +72,7 @@ class CheckoutController extends Controller
                 $harga = (float) $menu->harga;
                 $itemSubtotal = $harga * $qty;
 
-                if (! isset($groups[$tenantId])) {
+                if (!isset($groups[$tenantId])) {
                     $groups[$tenantId] = [];
                 }
 
@@ -133,7 +130,6 @@ class CheckoutController extends Controller
                     'status_pesanan' => 'menunggu_pembayaran',
                 ]);
 
-                // Simpan detail menu dan kurangi stok.
                 foreach ($details as $detail) {
                     $order->details()->create([
                         'menu_id' => $detail['menu']->id,
@@ -199,8 +195,14 @@ class CheckoutController extends Controller
             ->where('user_id', auth()->id())
             ->findOrFail($id);
 
+        if (!$order->payment) {
+            return back()->with('error', 'Data pembayaran tidak ditemukan.');
+        }
+
+        // Jika pembayaran sudah berhasil, langsung ke status pesanan.
         if ($order->payment->status_pembayaran === 'berhasil') {
-            return $this->redirectKeStatusPesanan()
+            return redirect()
+                ->route('status-pesanan.show', $order->id)
                 ->with('success', 'Pembayaran sudah berhasil.');
         }
 
@@ -209,20 +211,25 @@ class CheckoutController extends Controller
         }
 
         DB::transaction(function () use ($order) {
+
+            // Ubah status pembayaran.
             $order->payment()->update([
                 'status_pembayaran' => 'berhasil',
                 'tanggal_bayar' => now(),
             ]);
 
+            // Ubah status pesanan utama.
             $order->update([
                 'status_pesanan' => 'menunggu_konfirmasi',
             ]);
 
+            // Ubah status seluruh stan.
             OrderTenant::where('order_id', $order->id)
                 ->update([
                     'status_pesanan' => 'menunggu_konfirmasi',
                 ]);
 
+            // Catat riwayat perubahan status.
             OrderStatusHistory::create([
                 'order_id' => $order->id,
                 'status' => 'menunggu_konfirmasi',
@@ -231,20 +238,12 @@ class CheckoutController extends Controller
             ]);
         });
 
-        return $this->redirectKeStatusPesanan()
-            ->with('success', 'Pembayaran berhasil. Pesananmu menunggu konfirmasi stan.');
-    }
-
-    /**
-     * Arahkan ke halaman Status Pesanan.
-     * Jika route 'pesanan.status' belum dibuat, sementara
-     * diarahkan ke daftar menu supaya tidak error 404/500.
-     * Ganti 'pesanan.status' dengan nama route aslimu.
-     */
-    private function redirectKeStatusPesanan()
-    {
-        return Route::has('pesanan.status')
-            ? redirect()->route('pesanan.status')
-            : redirect()->route('menu.index');
+        // Arahkan pembeli ke halaman Status Pesanan.
+        return redirect()
+            ->route('status-pesanan.show', $order->id)
+            ->with(
+                'success',
+                'Pembayaran berhasil. Pesananmu menunggu konfirmasi stan.'
+            );
     }
 }
