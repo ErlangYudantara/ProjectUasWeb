@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Pembeli\MenuController;
 use App\Http\Controllers\Pembeli\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Pembeli\StanController;
 
 // Landing Page
 Route::get('/', [LandingController::class, 'index'])
@@ -16,6 +17,8 @@ Route::get('/', [LandingController::class, 'index'])
 // Menu & Pesanan (bisa dibuka tamu maupun pengguna login)
 Route::get('/menu', [MenuController::class, 'index'])
     ->name('menu.index');
+// Daftar stan
+Route::get('/stan', [StanController::class, 'index'])->name('stan.index');
 
 // Keranjang
 Route::get('/keranjang', [CartController::class, 'index'])
@@ -46,7 +49,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     // Sementara: pembeli diarahkan ke halaman menu
-    Route::get('/pembeli/dashboard', fn () => redirect()->route('menu.index'))
+    Route::get('/pembeli/dashboard', fn () => redirect()->route('stan.index'))
         ->name('pembeli.dashboard');
 
     // Placeholder sampai dashboard penjual dibuat

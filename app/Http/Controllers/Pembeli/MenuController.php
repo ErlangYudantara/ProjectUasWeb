@@ -12,16 +12,23 @@ class MenuController extends Controller
 {
     public function index(Request $request)
     {
+        $stanId = $request->integer('stan') ?: null;
+        if (! $stanId) {
+            return redirect()->route('stan.index');
+        }
+
+        $stan = Tenant::where('status', 'aktif')->findOrFail($stanId);
+
         $q          = trim((string) $request->query('q', ''));
         $kategoriId = $request->integer('kategori') ?: null;
+        $like       = '%' . addcslashes($q, '%_\\') . '%';
 
         $menus = Menu::with(['tenant', 'category'])
-            ->whereHas('tenant', fn ($t) => $t->where('status', 'aktif'))
-            ->when($q !== '', function ($query) use ($q) {
-                $query->where(function ($w) use ($q) {
-                    $w->where('nama_menu', 'like', "%{$q}%")
-                      ->orWhere('deskripsi', 'like', "%{$q}%")
-                      ->orWhereHas('tenant', fn ($t) => $t->where('nama_stan', 'like', "%{$q}%"));
+            ->where('tenant_id', $stan->id)
+            ->when($q !== '', function ($query) use ($like) {
+                $query->where(function ($w) use ($like) {
+                    $w->where('nama_menu', 'like', $like)
+                      ->orWhere('deskripsi', 'like', $like);
                 });
             })
             ->when($kategoriId, fn ($query) => $query->where('category_id', $kategoriId))
@@ -30,18 +37,13 @@ class MenuController extends Controller
             ->paginate(8)
             ->withQueryString();
 
-        $stanTunggal = null;
-        if ($q !== '') {
-            $cocok = Tenant::where('status', 'aktif')->where('nama_stan', 'like', "%{$q}%")->get();
-            $stanTunggal = $cocok->count() === 1 ? $cocok->first() : null;
-        }
-
         return view('menu.index', [
             'menus'       => $menus,
             'categories'  => Category::orderBy('id')->get(),
             'q'           => $q,
             'kategoriId'  => $kategoriId,
-            'stanTunggal' => $stanTunggal,
+            'stanId'      => $stan->id,
+            'stanTunggal' => $stan,
         ]);
     }
 }

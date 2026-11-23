@@ -14,6 +14,7 @@ class Tenant extends Model
         'deskripsi',
         'lokasi',
         'foto',
+        'foto_stan',
         'jam_buka',
         'jam_tutup',
         'status',
@@ -44,5 +45,26 @@ class Tenant extends Model
     public function orderTenants(): HasMany
     {
         return $this->hasMany(OrderTenant::class);
+    }
+
+    /** Foto cadangan (dipakai menu); kalau kosong pakai logo. */
+    public function getFotoUrlAttribute(): string
+    {
+        return $this->resolveFotoPath($this->foto);
+    }
+
+    /** Foto tampak stan untuk kartu daftar stan; cadangan: foto menu, lalu logo. */
+    public function getFotoStanUrlAttribute(): string
+    {
+        return $this->resolveFotoPath($this->foto_stan ?: $this->foto);
+    }
+
+    private function resolveFotoPath(?string $path): string
+    {
+        if (! $path) {
+            return asset('images/logo-upnvj.png');
+        }
+
+        return str_starts_with($path, 'images/') ? asset($path) : asset('storage/' . $path);
     }
 }
