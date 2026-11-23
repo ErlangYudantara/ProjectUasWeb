@@ -1,5 +1,6 @@
 /* HALAMAN MENU & PESANAN (pembeli) - memakai variabel dari kantin.css */
 .m-page{max-width:1152px;margin:0 auto;padding:24px 24px 150px}
+.m-backstan { display: inline-block; margin-bottom: 14px; padding: 8px 14px; border-radius: 10px; background: #eff4ff; color: #0f5c35; font-weight: 600; font-size: 14px; }
 
 /* TOPBAR */
 .m-topbar{display:flex;justify-content:space-between;align-items:center;height:72px;padding:0 40px;background:var(--white);box-shadow:0 2px 12px rgba(0,30,60,.06);position:sticky;top:0;z-index:30}

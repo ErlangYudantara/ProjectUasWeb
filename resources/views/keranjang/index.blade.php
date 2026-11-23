@@ -7,6 +7,7 @@
 @endpush
 
 @section('content')
+
 @section('topnav')
     @include('layouts._topnav')
 @endsection

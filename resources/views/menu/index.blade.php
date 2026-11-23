@@ -3,6 +3,7 @@
 @section('title', 'Menu & Pesanan - Kantin UPNVJ')
 
 @section('content')
+<a href="{{ route('stan.index') }}" class="m-backstan">&larr; Kembali ke Daftar Stan</a>
 @section('topnav')
     @include('layouts._topnav')
 @endsection
@@ -11,10 +12,16 @@
 <section class="m-hero">
     <div class="m-hero-info">
         <div class="m-hero-badges">
-            <span class="m-open"><x-icon name="zap" :size="12" /> BUKA &bull; 07.30 - 16.30 WIB</span>
-            <span class="m-loc">&bull; Gedung Dr. Soetomo Lt. 1</span>
+            @php
+                $jamBuka  = $stanTunggal->jam_buka ?? null;
+                $jamTutup = $stanTunggal->jam_tutup ?? null;
+            @endphp
+            <span class="m-open"><x-icon name="zap" :size="12" /> BUKA @if ($jamBuka && $jamTutup)&bull; {{ str_replace(':', '.', substr($jamBuka, 0, 5)) }} - {{ str_replace(':', '.', substr($jamTutup, 0, 5)) }} WIB @endif</span>
+            @if ($stanTunggal->lokasi ?? null)
+                <span class="m-loc">&bull; {{ $stanTunggal->lokasi }}</span>
+            @endif
         </div>
-        <h1>Kantin Green Campus UPNVJ</h1>
+        <h1>{{ $stanTunggal->nama_stan }}</h1>
         <p>Pesan makanan &amp; minuman langsung tanpa antre. Ambil dengan nomor token saat pesanan siap saji.</p>
     </div>
     <div class="m-stats">
@@ -34,6 +41,7 @@
 {{-- PENCARIAN --}}
 <section class="m-search">
     <form method="GET" action="{{ route('menu.index') }}" class="m-search-row" role="search">
+        <input type="hidden" name="stan" value="{{ $stanId }}">
         @if ($kategoriId)
             <input type="hidden" name="kategori" value="{{ $kategoriId }}">
         @endif
@@ -41,7 +49,7 @@
             <x-icon name="search" :size="20" />
             <input type="text" id="searchInput" name="q" value="{{ $q }}" placeholder="Cari menu makanan atau minuman..." autocomplete="off" aria-label="Cari menu">
             @if ($q !== '')
-                <a href="{{ route('menu.index', array_filter(['kategori' => $kategoriId])) }}" class="m-clear" aria-label="Hapus pencarian"><x-icon name="x-circle" :size="18" /></a>
+                <a href="{{ route('menu.index', array_filter(['stan' => $stanId, 'kategori' => $kategoriId])) }}" class="m-clear" aria-label="Hapus pencarian"><x-icon name="x-circle" :size="18" /></a>
             @endif
         </label>
         <button type="submit" class="btn btn-primary m-search-btn"><x-icon name="search" :size="16" /> Cari Menu</button>
@@ -50,16 +58,16 @@
     <div class="m-popular">
         <span><x-icon name="flame" :size="14" /> Pencarian Populer:</span>
         @foreach (['Ayam Geprek', 'Soto Ayam', 'Es Teh', 'Paket Hemat'] as $kata)
-            <a href="{{ route('menu.index', array_filter(['q' => $kata, 'kategori' => $kategoriId])) }}">{{ $kata }}</a>
+            <a href="{{ route('menu.index', array_filter(['stan' => $stanId, 'q' => $kata, 'kategori' => $kategoriId])) }}">{{ $kata }}</a>
         @endforeach
     </div>
 </section>
 
 {{-- KATEGORI --}}
 <nav class="m-chips" aria-label="Kategori menu">
-    <a href="{{ route('menu.index', array_filter(['q' => $q])) }}" class="{{ $kategoriId ? '' : 'on' }}">Semua Menu</a>
+    <a href="{{ route('menu.index', array_filter(['stan' => $stanId, 'q' => $q])) }}" class="{{ $kategoriId ? '' : 'on' }}">Semua Menu</a>
     @foreach ($categories as $c)
-        <a href="{{ route('menu.index', array_filter(['q' => $q, 'kategori' => $c->id])) }}" class="{{ $kategoriId == $c->id ? 'on' : '' }}">{{ $c->nama_kategori }}</a>
+        <a href="{{ route('menu.index', array_filter(['stan' => $stanId, 'q' => $q, 'kategori' => $c->id])) }}" class="{{ $kategoriId == $c->id ? 'on' : '' }}">{{ $c->nama_kategori }}</a>
     @endforeach
 </nav>
 
@@ -119,7 +127,7 @@
         <x-icon name="search" :size="32" />
         <h3>Menu tidak ditemukan</h3>
         <p>Coba kata kunci lain, atau tampilkan semua menu.</p>
-        <a href="{{ route('menu.index') }}" class="btn btn-primary btn-sm">Lihat Semua Menu</a>
+        <a href="{{ route('menu.index', ['stan' => $stanId]) }}" class="btn btn-primary btn-sm">Lihat Semua Menu</a>
     </div>
 @endif
 
